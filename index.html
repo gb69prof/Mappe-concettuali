@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mappe Concettuali — Editor Touch (iPad)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">CM</div>
+      <div class="titles">
+        <div class="title">Mappe Concettuali</div>
+        <div class="subtitle">Editor touch • spazio infinito • testo + immagini</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button class="btn" id="btnSave" title="Salva sul dispositivo">Salva</button>
+      <button class="btn" id="btnLoad" title="Carica dal dispositivo">Carica</button>
+      <button class="btn" id="btnExport" title="Esporta JSON">Esporta</button>
+      <label class="btn file" title="Importa JSON">
+        Importa
+        <input type="file" id="fileImport" accept="application/json" />
+      </label>
+    </div>
+  </header>
+
+  <main class="app">
+    <div class="stage" id="stage">
+      <div class="viewport" id="viewport" aria-label="Area di lavoro">
+        <svg class="edges" id="edges" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="nodes" id="nodes"></div>
+        <div class="hud">
+          <div class="chip" id="chipZoom">100%</div>
+          <div class="chip" id="chipHint">Tocca +Testo e poi tocca il punto dove inserirlo</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="inspector" id="inspector" aria-label="Proprietà">
+      <div class="insp-head">
+        <div class="insp-title">Proprietà</div>
+        <div class="insp-sub" id="inspSub">Nessuna selezione</div>
+      </div>
+      <div class="insp-body" id="inspBody">
+        <div class="empty">
+          Seleziona un nodo o una freccia per modificarla. Su iPad: tocca una volta per selezionare.
+        </div>
+      </div>
+    </aside>
+
+    <!-- Bottom toolbar (iPad-friendly) -->
+    <nav class="bottombar" aria-label="Strumenti">
+      <button class="tool active" id="toolSelect">
+        <span class="icon">⟡</span>
+        <span class="label">Sposta</span>
+      </button>
+
+      <button class="tool" id="toolLink">
+        <span class="icon">⟶</span>
+        <span class="label">Collega</span>
+      </button>
+
+      <button class="tool" id="toolPan">
+        <span class="icon">✋</span>
+        <span class="label">Pan</span>
+      </button>
+
+      <span class="sep"></span>
+
+      <button class="action" id="btnAddText">
+        <span class="icon">＋</span>
+        <span class="label">Testo</span>
+      </button>
+
+      <label class="action file" id="btnAddImageLabel">
+        <span class="icon">🖼️</span>
+        <span class="label">Immagine</span>
+        <input type="file" id="fileAddImage" accept="image/*" />
+      </label>
+
+      <button class="action danger" id="btnDelete">
+        <span class="icon">⌫</span>
+        <span class="label">Elimina</span>
+      </button>
+
+      <span class="sep"></span>
+
+      <button class="tool" id="btnCenter">
+        <span class="icon">↺</span>
+        <span class="label">Centra</span>
+      </button>
+    </nav>
+  </main>
+
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

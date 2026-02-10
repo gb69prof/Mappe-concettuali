@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Costruttore Mappe Concettuali — passo passo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">CM</div>
+      <div class="titles">
+        <div class="title">Costruttore di Mappe Concettuali</div>
+        <div class="subtitle">Wizard guidato + editor visuale</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="btnNew" title="Nuova mappa">Nuova</button>
+      <button class="btn" id="btnSave" title="Salva nel browser">Salva</button>
+      <button class="btn" id="btnLoad" title="Carica dal browser">Carica</button>
+      <span class="sep"></span>
+      <button class="btn" id="btnExportSVG" title="Esporta SVG">SVG</button>
+      <button class="btn" id="btnExportPNG" title="Esporta PNG">PNG</button>
+      <span class="sep"></span>
+      <label class="btn file">
+        Importa JSON
+        <input type="file" id="fileImport" accept="application/json" />
+      </label>
+      <button class="btn" id="btnExportJSON" title="Esporta JSON">Esporta JSON</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Percorso guidato</h2>
+        <div class="hint">Compila i campi in ordine: la mappa si aggiorna in tempo reale.</div>
+      </div>
+
+      <div class="steps" id="steps">
+        <div class="step active" data-step="1">
+          <div class="step-title">1) Concetto principale</div>
+          <div class="grid">
+            <label class="field">
+              <span>Testo</span>
+              <input id="rootText" type="text" placeholder="Es: CONCETTO PRINCIPALE" />
+            </label>
+            <label class="field">
+              <span>Colore</span>
+              <select id="rootColor">
+                <option value="yellow" selected>Giallo</option>
+                <option value="blue">Blu</option>
+                <option value="green">Verde</option>
+                <option value="gray">Grigio</option>
+                <option value="pink">Rosa</option>
+              </select>
+            </label>
+          </div>
+          <div class="row">
+            <button class="btn primary" data-next>Continua</button>
+          </div>
+        </div>
+
+        <div class="step" data-step="2">
+          <div class="step-title">2) Struttura dei rami</div>
+          <div class="grid">
+            <label class="field">
+              <span>Numero rami principali</span>
+              <select id="branchCount">
+                <option value="1">1</option>
+                <option value="2" selected>2</option>
+                <option value="3">3</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Relazione dal principale ai rami</span>
+              <select id="rootRelationPreset">
+                <option value="formato da" selected>formato da</option>
+                <option value="composto da">composto da</option>
+                <option value="si divide in">si divide in</option>
+                <option value="dipende da">dipende da</option>
+                <option value="custom">personalizzata…</option>
+              </select>
+            </label>
+            <label class="field" id="rootRelationCustomWrap" style="display:none;">
+              <span>Relazione personalizzata</span>
+              <input id="rootRelationCustom" type="text" placeholder="Es: nasce da" />
+            </label>
+          </div>
+          <div class="row">
+            <button class="btn" data-prev>Indietro</button>
+            <button class="btn primary" data-next>Continua</button>
+          </div>
+        </div>
+
+        <div class="step" data-step="3">
+          <div class="step-title">3) Rami principali e sotto-concetti</div>
+
+          <div class="tabs" id="branchTabs"></div>
+          <div class="branch-editor" id="branchEditor"></div>
+
+          <div class="row">
+            <button class="btn" data-prev>Indietro</button>
+            <button class="btn primary" id="btnFinish">Fine (editor libero)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-foot">
+        <details>
+          <summary>💡 Suggerimento di Libera: come ottenere l’effetto “stile immagine”</summary>
+          <ul>
+            <li>Usa etichette brevi sulle frecce (“formato da”, “si divide in”).</li>
+            <li>Metti i sotto-concetti come lettere (A, B, C) o parole singole.</li>
+            <li>Non riempire troppo: una mappa concettuale respira.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <section class="canvas-wrap">
+      <div class="canvas-head">
+        <div class="canvas-title">
+          Anteprima
+          <span class="pill" id="pillMode">Wizard</span>
+        </div>
+
+        <div class="canvas-tools">
+          <label class="toggle">
+            <input type="checkbox" id="toggleGrid" checked />
+            <span>griglia</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="toggleCurves" />
+            <span>curve</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="toggleDrag" checked />
+            <span>trascina</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="canvas" id="canvas">
+        <!-- SVG injected here -->
+      </div>
+
+      <div class="canvas-foot">
+        <div class="minihelp">
+          Trascina i nodi per rifinire. Doppio click su un nodo per rinominare.
+          <span class="dot">•</span>
+          Click su una freccia per cambiare etichetta.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Offline, nessun server. Salvataggi in LocalStorage o JSON.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
